@@ -1,0 +1,25 @@
+{
+  "name": "FMovie",
+  "authors": [
+    "fxl"
+  ],
+  "description": "fxl",
+  "main": "immoc",
+  "keywords": [
+    "app"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/other",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.3"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "FMovie",
+  "version": "0.0.1",
+  "description": "FMovie movie",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "FMovie",
+    "movie"
+  ],
+  "author": "fxl",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt-concurrent": "^2.3.1",
+    "grunt-contrib-nodemon": "^0.5.4",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-nodemon": "^0.4.2"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.1"
+  }
+}

@@ -1,0 +1,14 @@
+extend ../layout
+
+block content
+  .container
+    .row
+       //- 隐藏表单域，用来更新电影数据，存储电影ID
+      form.form-horizontal(method="post", action="/admin/categroy")
+        .form-group
+          label.col-sm-2.control-label(for="inputCategroy") 电影分类
+          .col-sm-10
+            input#inputCategroy.form-control(type="text", name="categroy[name]", value=categroy.name)         
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-default(type="submit") 录入
