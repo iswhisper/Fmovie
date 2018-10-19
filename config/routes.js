@@ -56,4 +56,7 @@ app.get('/admin/categroy/list',User.signinRequired,User.adminRequired,Categroy.l
 
 app.delete('/admin/categroy/list',User.signinRequired,User.adminRequired,Categroy.delete)
 
+//分类具体页面
+app.get('/results',Index.search)
+
 }
