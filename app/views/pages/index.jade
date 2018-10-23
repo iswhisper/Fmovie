@@ -14,7 +14,12 @@ block content
                 .col-md-2
                   .thumbnail
                     a(href="/movie/#{item._id}")
-                      img(src="#{item.poster}",alt="#{item.title}")
+                      //-判断是绝对路径还是相对路径
+                      if item.poster.indexOf('http')>-1
+                        //-绝对路径
+                        img(src="#{item.poster}",alt="#{item.title}")
+                      else
+                        img(src="/upload/#{item.poster}",alt="#{item.title}")
                     .caption
                       h3 #{item.title}
                       p

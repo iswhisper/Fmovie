@@ -36,10 +36,10 @@ app.get('/movie/:id', Movie.detail)
 app.get('/admin/movie',User.signinRequired,User.adminRequired,Movie.new)
 //admin update movie
 app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update)
-//admin post movie
-app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.save)
+//admin post movie 添加新的电影
+app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.savePoster,Movie.save)
 //列表页
-app.get('/admin/movie/list',User.signinRequired,User.adminRequired, Movie.list)
+app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list)
 
 //列表页删除电影
 app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.delete)

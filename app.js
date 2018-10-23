@@ -3,6 +3,7 @@ var express = require('express')
 var app = express()
 var path = require('path')
 var cookieParser = require('cookie-parser')
+var multipart = require('connect-multiparty');
 var session = require('express-session')
 var mongoose = require('mongoose')
 var mongoStore=require('connect-mongo')(session)
@@ -10,11 +11,9 @@ var logger = require('morgan');
 var port = process.env.PORT || 3000
 var dbUrl='mongodb://localhost/imooc'
 mongoose.connect(dbUrl)
-
+app.use(multipart())//处理表单传输文件等的插件
 var bodyParser = require('body-parser');
-
 app.use(bodyParser.json()); // for parsing application/json
-
 app.use(bodyParser.urlencoded({
 	extended: true
 })); // for parsing application/x-www-form-urlencoded

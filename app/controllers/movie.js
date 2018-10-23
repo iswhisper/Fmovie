@@ -2,6 +2,8 @@ var Movie = require("../models/movie.js")
 var Comment = require("../models/comment.js")
 var Categroy = require("../models/categroy.js")
 var _ = require("underscore") //里面的extend()方法可将新数据里面的字段替换掉老数据里面的字段
+var fs=require('fs')
+var path=require('path')
 
 exports.detail = function(req, res) {
 	/* body... */
@@ -51,12 +53,41 @@ exports.update = function(req, res) {
 		})
 	}
 }
+exports.savePoster=function (req,res,next) {
+	/* body... */
+	var posterData=req.files.uploadposter //接收数据
+	var filePath=posterData.path//拿到原始路径
+	var originalFilename=posterData.originalFilename //拿到原始文件名
+	 console.log(originalFilename+"=---======================")
+	if(originalFilename){
+		//如果有则读取数据
+		fs.readFile(filePath,function (err,data) {
+			/* body... */
+			var timestamp=Date.now();//拿到时间戳
+			var type=posterData.type.split('/')[1] //拿到图片类型
+      		var poster = timestamp + '.' + type
+			var newPath=path.join(__dirname,'../','/views/public/upload/'+poster)  //生成一个储存图片的服务器的地址
+			console.log(newPath)
+ 			fs.writeFile(newPath,data,function (err) {
+ 				/* body... */
+ 				req.poster=poster; //将写入的数据挂在req上面
+ 				next();
+ 			})
+		})
+	}else {
+		next();
+	}
+}
 //admin post movie //电影的保存
 exports.save = function(req, res) {
 	/* body... */
 	var id = req.body.movie._id;
 	var movieObj = req.body.movie;
 	var _movie;
+//是否有上传的海报图片有则保存无则保存海报地址
+	if(req.poster){
+		movieObj.poster=req.poster
+	}
 	if (id) {
 		//已处在该id的数据
 		Movie.findById(id, function(err, movie) {
