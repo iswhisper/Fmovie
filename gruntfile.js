@@ -15,8 +15,53 @@ module.exports = function(grunt) {
           livereload: true
         }
       },
-      
+      uglify: {
+        files: ['public/**/*.js'],
+        tasks: ['jshint'],
+        options: {
+          livereload: true
+        }
+      },
+      styles: {
+        files: ['public/**/*.less'],
+        tasks: ['less'],
+        options: {
+          nospawn: true
+        }
+      }
   },
+   jshint: { //对那些文件进行检查
+      options: {
+        jshintrc: '.jshintrc',
+        ignores: ['public/libs/**/*.js']
+      },
+      all: ['public/js/*.js', 'test/**/*.js', 'app/**/*.js']
+    },
+
+    less: {  //压缩css文件
+      development: {
+        options: {
+          compress: true,
+          yuicompress: true,
+          optimization: 2
+        },
+        files: {
+          'public/build/index.css': 'public/less/index.less'
+        }
+      }
+    },
+
+    uglify: {  //可将多个文件压缩成一个文件
+      development: {
+        files: {
+          'public/build/admin.min.js': 'public/js/admin.js',
+          'public/build/detail.min.js': [
+            'public/js/detail.js'
+          ]
+        }
+      }
+    },
+
     nodemon: {
       dev: {
         options: {
@@ -34,7 +79,12 @@ module.exports = function(grunt) {
         }
       }
     },
-
+    mochaTest: {
+      options: {
+        reporter: 'spec'
+      },
+      src: ['test/**/*.js']
+    },
     concurrent: {
       tasks: ['nodemon', 'watch', 'less', 'uglify', 'jshint'],
       options: {
@@ -42,12 +92,16 @@ module.exports = function(grunt) {
       }
     }
   })
-
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-nodemon')
   grunt.loadNpmTasks('grunt-concurrent')
-  grunt.option('force', true)
+  grunt.loadNpmTasks('grunt-mocha-test')
+  grunt.loadNpmTasks('grunt-contrib-less')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-contrib-jshint')
 
+  grunt.option('force', true)
   grunt.registerTask('default', ['concurrent'])
 
+  grunt.registerTask('test', ['mochaTest'])
 }

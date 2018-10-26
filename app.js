@@ -10,7 +10,28 @@ var mongoStore=require('connect-mongo')(session)
 var logger = require('morgan'); 
 var port = process.env.PORT || 3000
 var dbUrl='mongodb://localhost/imooc'
+var fs=require('fs')
 mongoose.connect(dbUrl)
+var modles_path=__dirname+"/app/models"
+var walk = function(path) {
+  fs
+    .readdirSync(path)
+    .forEach(function(file) {
+      var newPath = path + '/' + file
+      var stat = fs.statSync(newPath)
+
+      if (stat.isFile()) {
+        if (/(.*)\.(js|coffee)/.test(file)) {
+          require(newPath)
+        }
+      }
+      else if (stat.isDirectory()) {
+        walk(newPath)
+      }
+    })
+}
+walk(modles_path) //测试用例
+
 app.use(multipart())//处理表单传输文件等的插件
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // for parsing application/json

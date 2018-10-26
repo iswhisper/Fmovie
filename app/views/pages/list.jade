@@ -15,6 +15,7 @@ block content
               th 上映年份
               th 录入时间
               th 查看
+              th 浏览次数
               th 更新
               th 删除
           tbody
@@ -26,6 +27,7 @@ block content
               td #{item.year}
               td #{moment(item.meta.updateAt).format('MM/DD/YYYY')}
               td: a(target="_blank",href="/movie/#{item._id}")  查看
+              td #{item.pv}
               td: a(target="_blank",href="../movie/update/#{item._id}")  修改
               td
                 button.btn.btn-danger.del(type="button",data-id="#{item._id}")  删除

@@ -8,6 +8,11 @@ var path=require('path')
 exports.detail = function(req, res) {
 	/* body... */
 	var id = req.params.id; //获取路径的:id
+	Movie.update({_id:id},{$inc:{pv:1}}, function(err) {
+		if(err){
+			console.log(err)
+		}
+	})
 	Movie.findById(id, function(err, movie) {
 		/* body... */
 		Comment

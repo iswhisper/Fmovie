@@ -10,6 +10,10 @@ var MovieSchema = new Schema({
 	flash: String,
 	poster: String,
 	year: Number,
+	pv:{ //双向绑定
+		type:Number, 
+		default:0
+	},
 	categroy:{ //双向绑定
 		type:ObjectId, 
 		ref:'Categroy'
